@@ -1,9 +1,41 @@
 <h2>Create a new task</h2>
-<form>
-  <app-input
-    [label]="'New Task'"
-    [id]="'new-task'"
-    [formControl]="form.controls.name"
-  />
-  <app-checkbox />
-</form>
+
+<table>
+  <tr>
+    <td> <!--First td for form to display at left side-->
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-input [label]="'New Task'" [id]="'new-task'" [formControl]="form.controls.name" />
+        <!-- Validation Error Message -->
+        @if(form.controls.name.errors?.['required']) {
+        <span class="errorClass"> Task name is required. </span>
+        }
+        @else if(form.controls.name.errors?.['minlength']) {
+        <span class="errorClass"> Minimum lenth should be 3 characters </span>
+        }
+        <app-checkbox />
+        <button type="submit" [disabled]="form.invalid">Add Task</button>
+      </form>
+    </td>
+
+    <td> <!--Second td for added data/tasks to display at right side-->
+      <h3> List of tasks </h3>
+      @if(!tasks.length) {
+      <div style="font-size: small;"> No tasks to show..Please add tasks</div>
+      }
+      @if(tasks.length) {
+      <div style="font-size: small;"> Click on the task name to go to details</div>
+      }
+      <br>
+
+      @if(tasks.length) { <input type="text" placeholder="Search tasks..." [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearchChange(searchQuery)" class="search-input" /> }
+
+      @for (item of filteredTasks; track item.id) {
+      <li> <a class="setWidth" (click)="navigateToDetails(item.id)"> {{ item.name }} </a> &nbsp;
+        <button (click)="deleteTask(item.id)">Delete</button>
+      </li>
+      }
+
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,36 @@
+td {
+    border: 1px;
+    text-align: left;
+    width: 800px;
+    height: 400px;
+}
+
+li {
+    padding: 5px;
+
+    a {
+        color: blue;
+    }
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+button {
+    padding: 5px;
+}
+
+.errorClass {
+    color: red;
+}
+
+td {
+    border: 1px solid grey;
+    align-content: flex-start;
+    padding: 10px;
+}
+
+.setWidth {
+    width: 30px;
+}
